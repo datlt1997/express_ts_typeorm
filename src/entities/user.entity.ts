@@ -1,4 +1,5 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Post } from "./post.entity";
 
 
 @Entity('users')
@@ -14,7 +15,13 @@ export class User extends BaseEntity {
 
   @Column({ nullable: true})
   email!: string
+ 
+  @Column({ nullable: true, default: "123456"})
+  password!: string
 
   @Column({ nullable: false})
   age!: number
+
+  @OneToMany(() => Post, (posts) => posts.user)
+  posts!: Post[]
 }
